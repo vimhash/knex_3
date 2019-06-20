@@ -15,8 +15,19 @@ let postDatos = (req, res) => {
     let retorno = req.body.retorno
     let datos = req.body.datos
     db(tabla).returning(retorno).insert(datos)
-    .then(() => {
-        db.select().from('person').then( resultado => res.send(resultado));
+    .then(resultado => {
+        return res.status(200).json({
+            ok: true,
+            datos: resultado,
+            mensaje: `Se insertaron los datos`
+        })
+    })
+    .catch((error) => {
+        return res.status(500).json({
+            ok: false,
+            datos: null,
+            mensaje: `Error del servidor: ${error}`
+        })
     })
 }
 
