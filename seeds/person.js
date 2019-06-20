@@ -1,3 +1,4 @@
+;
 exports.seed = function(knex, Promise) {
     return knex('person').del()
       .then(function () {
